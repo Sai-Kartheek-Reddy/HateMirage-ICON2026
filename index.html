@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HateMirage — Explainable Faux Hate Detection | ICON 2026 Shared Task</title>
+<meta name="description" content="HateMirage: a shared task at ICON 2026 on explainable Faux Hate detection — target identification and multi-dimensional reasoning (Intent, Implication) over 4,530 annotated comments.">
+<link rel="icon" type="image/png" href="assets/logo.png">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<nav class="nav">
+  <div class="wrap">
+    <a href="#top" class="nav-brand"><img src="assets/logo.png" alt=""> HateMirage</a>
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">☰</button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#problem">Overview</a></li>
+      <li><a href="#tasks">Tasks</a></li>
+      <li><a href="#dataset">Dataset</a></li>
+      <li><a href="#timeline">Timeline</a></li>
+      <li><a href="#organizers">Organizers</a></li>
+      <li><a href="#join" class="nav-cta">Register</a></li>
+    </ul>
+  </div>
+</nav>
+
+<header class="hero" id="top">
+  <div class="wrap">
+    <div class="hero-top">
+      <span class="badge"><span class="dot"></span> ICON 2026 · Shared Task</span>
+      <span class="badge">Accepted at LREC 2026 — <a href="https://arxiv.org/abs/2603.02684" style="color:inherit;text-decoration:underline;" target="_blank" rel="noopener">read the paper ↗</a></span>
+    </div>
+
+    <div class="hero-grid">
+      <div>
+        <h1>Hate hides inside <em>fake</em> stories.<br>Teach your model to say why.</h1>
+        <p class="hero-sub">HateMirage is a shared task on <strong>explainable Faux Hate</strong> — comments that are both hateful and built on debunked claims. Don't just flag them: name the <strong>Target</strong>, the <strong>Intent</strong>, and the <strong>Implication</strong> behind every one.</p>
+        <div class="hero-actions">
+          <a href="#join" class="btn btn-gold">Register your team →</a>
+          <a href="#tasks" class="btn btn-outline">See the tasks</a>
+        </div>
+        <div class="hero-stats">
+          <div class="stat"><span class="n">4,530</span><span class="l">Annotated comments</span></div>
+          <div class="stat"><span class="n">2</span><span class="l">Sub-tasks</span></div>
+          <div class="stat"><span class="n">3</span><span class="l">Reasoning dimensions</span></div>
+        </div>
+      </div>
+      <div class="lens-card">
+        <img src="assets/logo.png" alt="HateMirage logo — a magnifying glass over a speech bubble, revealing Target, Intent and Implication">
+        <div class="lens-caption">REVEAL → REASON → EXPLAIN</div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main>
+
+  <!-- ============ PROBLEM / SIGNATURE INTERACTIVE ============ -->
+  <section id="problem">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">The problem</span>
+        <h2>A clean-looking comment can still be a weapon.</h2>
+        <p>No slur, no profanity — a keyword filter reads it as harmless. But the premise is fabricated and the hostility is real. HateMirage breaks that gap into three questions: who is actually being attacked, why, and what harm it could do. Try it on a real (masked) example from the corpus:</p>
+      </div>
+
+      <div class="decode">
+        <div class="decode-comment">
+          “<span class="mask">[Religious Group]</span> men are trapping innocent <span class="mask">[Community]</span> women in fake love to convert them.”
+        </div>
+
+        <input type="radio" name="lens" id="lens-target" checked>
+        <input type="radio" name="lens" id="lens-intent">
+        <input type="radio" name="lens" id="lens-implication">
+
+        <div class="lens-tabs">
+          <label for="lens-target"><span class="ic">T</span> Target — who?</label>
+          <label for="lens-intent"><span class="ic">I</span> Intent — why?</label>
+          <label for="lens-implication"><span class="ic">H</span> Implication — how?</label>
+        </div>
+
+        <div class="lens-panels">
+          <div class="lens-panel" id="panel-target">
+            <span class="tag">Target — who is attacked</span>
+            <p><strong>[Religious Group]</strong> — the community the comment is actually directed against. A model that misses this can't tell who's being harmed, which is the first thing a moderator or researcher needs to know.</p>
+          </div>
+          <div class="lens-panel" id="panel-intent">
+            <span class="tag">Intent — why it was said</span>
+            <p>To portray [Religious Group] as deceptive and predatory, reinforcing a fabricated conversion narrative. This is the motive behind the comment — the part a surface-level classifier never sees, because there's no slur to catch.</p>
+          </div>
+          <div class="lens-panel" id="panel-implication">
+            <span class="tag">Implication — what it could cause</span>
+            <p>Could deepen mistrust between communities and normalise religious profiling. This is the downstream harm — why the comment matters beyond the sentence itself, and what moderation is ultimately trying to prevent.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ TASKS ============ -->
+  <section id="tasks">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">Shared task</span>
+        <h2>What participants will do</h2>
+        <p>Both tasks run on the same HateMirage comments, so a single system can be built to handle the full pipeline — or teams can enter either one on its own.</p>
+      </div>
+
+      <div class="tasks-grid">
+        <div class="task-card a">
+          <span class="task-kicker">Task A</span>
+          <h3>Target Identification</h3>
+          <p>Given a Faux Hate comment, extract the entity or community it's actually directed against — even when the attack is implied rather than stated outright. Output is a short text span.</p>
+          <p style="margin-top:12px;">An accessible entry point for teams new to explanation-based tasks.</p>
+        </div>
+        <div class="task-card b">
+          <span class="task-kicker">Task B</span>
+          <h3>Intent &amp; Implication Generation</h3>
+          <p>Given the same comment, generate two free-text explanations: the <strong>Intent</strong> behind it and its likely <strong>Implication</strong>. A structured generation problem, not classification — and the part of HateMirage that current models struggle with most.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ DATASET ============ -->
+  <section id="dataset">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">The corpus</span>
+        <h2>4,530 comments, sourced from debunked claims.</h2>
+        <p>Built from widely debunked claims on fact-checking platforms, traced to the YouTube comment sections discussing them on international English news channels — English and Hindi-English code-mixed text included. Full construction details are in the <a href="https://arxiv.org/abs/2603.02684" target="_blank" rel="noopener" style="color:var(--teal-600);font-weight:600;">HateMirage paper, accepted at LREC 2026 ↗</a>.</p>
+      </div>
+
+      <div class="stats-panel">
+        <div>
+          <h4 style="color:#fff;font-family:'Inter',sans-serif;font-size:13px;text-transform:uppercase;letter-spacing:.06em;margin-bottom:16px;">Corpus splits</h4>
+          <div class="split-row"><span>Train</span><b>3,171</b></div>
+          <div class="split-row"><span>Validation</span><b>453</b></div>
+          <div class="split-row"><span>Test</span><b>906</b></div>
+          <div class="split-row total"><span>Total</span><b>4,530</b></div>
+        </div>
+        <div>
+          <h4 style="color:#fff;font-family:'Inter',sans-serif;font-size:13px;text-transform:uppercase;letter-spacing:.06em;margin-bottom:16px;">Field length (tokens)</h4>
+          <table class="field-table">
+            <thead><tr><th>Field</th><th>Avg.</th><th>Median</th></tr></thead>
+            <tbody>
+              <tr><td>Comment</td><td>30.5</td><td>28</td></tr>
+              <tr><td>Target</td><td>1.5</td><td>1</td></tr>
+              <tr><td>Intent</td><td>14.7</td><td>14</td></tr>
+              <tr><td>Implication</td><td>15.2</td><td>15</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ EVALUATION ============ -->
+  <section class="tight" id="evaluation">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">Evaluation</span>
+        <h2>Scored for meaning, not just word overlap.</h2>
+      </div>
+      <div class="eval-grid">
+        <div class="eval-card">
+          <span class="m">Sentence-BERT similarity</span>
+          <p>Captures semantic agreement between a predicted explanation and the reference — two correct explanations can be worded differently but still mean the same thing.</p>
+        </div>
+        <div class="eval-card">
+          <span class="m">ROUGE-L F1</span>
+          <p>Measures lexical and structural overlap, complementing the semantic score. For Task B, both metrics are computed on Intent and Implication separately, then averaged.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ TIMELINE ============ -->
+  <section id="timeline">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">Timeline</span>
+        <h2>Key dates</h2>
+        <p>Dates are tentative and will be confirmed as they're locked in. The dashed line marks today automatically, based on your device's date — no one has to update this by hand.</p>
+      </div>
+
+      <div class="timeline" id="timeline-track">
+        <div class="tl-line"></div>
+        <div class="tl-progress" id="tl-progress"></div>
+        <div class="tl-item" data-date="2026-08-07">
+          <div class="tl-date">07 Aug</div>
+          <div class="tl-dot-col"><div class="tl-dot"></div></div>
+          <div class="tl-body"><h4>Task website goes live</h4></div>
+        </div>
+        <div class="tl-item" data-date="2026-08-15">
+          <div class="tl-date">15 Aug</div>
+          <div class="tl-dot-col"><div class="tl-dot"></div></div>
+          <div class="tl-body"><h4>Starter kit released</h4></div>
+        </div>
+        <div class="tl-item" data-date="2026-08-20">
+          <div class="tl-date">20 Aug</div>
+          <div class="tl-dot-col"><div class="tl-dot"></div></div>
+          <div class="tl-body"><h4>Training and validation data released</h4></div>
+        </div>
+        <div class="tl-item" data-date="2026-09-20">
+          <div class="tl-date">20 Sep</div>
+          <div class="tl-dot-col"><div class="tl-dot"></div></div>
+          <div class="tl-body"><h4>Evaluation (test) set released</h4></div>
+        </div>
+        <div class="tl-item" data-date="2026-10-01">
+          <div class="tl-date">01 Oct</div>
+          <div class="tl-dot-col"><div class="tl-dot"></div></div>
+          <div class="tl-body"><h4>Final date for run submissions</h4></div>
+        </div>
+        <div class="tl-item" data-date="2026-10-04">
+          <div class="tl-date">04 Oct</div>
+          <div class="tl-dot-col"><div class="tl-dot"></div></div>
+          <div class="tl-body"><h4>Task results and rankings published</h4></div>
+        </div>
+        <div class="tl-item" data-date="2026-10-25">
+          <div class="tl-date">25 Oct</div>
+          <div class="tl-dot-col"><div class="tl-dot"></div></div>
+          <div class="tl-body"><h4>Participant system papers due</h4></div>
+        </div>
+        <div class="tl-item" data-date="2026-11-25">
+          <div class="tl-date">25 Nov</div>
+          <div class="tl-dot-col"><div class="tl-dot"></div></div>
+          <div class="tl-body"><h4>Acceptance decisions communicated</h4></div>
+        </div>
+        <div class="tl-item" data-date="2026-12-10">
+          <div class="tl-date">10 Dec</div>
+          <div class="tl-dot-col"><div class="tl-dot"></div></div>
+          <div class="tl-body"><h4>Camera-ready working notes + task overview paper due</h4></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ ORGANIZERS ============ -->
+  <section id="organizers">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">Organizers</span>
+        <h2>Organizing Committee</h2>
+      </div>
+
+      <div class="org-grid">
+        <div class="org-card">
+          <h4>Sai Kartheek Reddy Kasu</h4>
+          <div class="aff">Independent Researcher</div>
+        </div>
+        <div class="org-card">
+          <h4>Shankar Biradar</h4>
+          <div class="aff">Assistant Professor, MIT Manipal (MAHE)</div>
+        </div>
+        <div class="org-card">
+          <h4>Sunil Saumya</h4>
+          <div class="aff">Dean of Academics &amp; Assistant Professor, IIIT Dharwad</div>
+        </div>
+        <div class="org-card">
+          <h4>Md. Shad Akhtar</h4>
+          <div class="aff">Assistant Professor, IIIT Delhi</div>
+        </div>
+      </div>
+
+      <div class="contact-strip">
+        <div class="contact-question">Questions about the task?</div>
+        <div class="contact-links">
+          <span class="contact-tag">Contact</span>
+          <a href="mailto:saikartheekreddykasu@gmail.com">Sai Kartheek Reddy Kasu</a>
+          <span class="contact-sep">·</span>
+          <a href="mailto:shankar.biradar@manipal.edu">Shankar Biradar</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ JOIN ============ -->
+  <section id="join">
+    <div class="wrap">
+      <div class="join">
+        <div class="join-grid">
+          <div>
+            <span class="eyebrow" style="color:var(--gold-300);">Get involved</span>
+            <h2>Register your team</h2>
+            <p>Registration and data access happen in two quick steps. Do both — the mailing list is where evaluation links, baselines, and announcements go out.</p>
+            <div class="join-actions">
+              <a href="https://forms.gle/zegMMsKUmpnhZ6t17" class="btn btn-gold" target="_blank" rel="noopener">1 · Fill the registration form →</a>
+              <a href="https://groups.google.com/g/hatemirage-icon2026" class="btn btn-outline" target="_blank" rel="noopener">2 · Join Google Group ↗</a>
+            </div>
+          </div>
+          <div class="join-steps">
+            <div class="join-step">
+              <span class="num">1</span>
+              <div><p>Fill the registration form</p><span>Tell us your team name and contact email.</span></div>
+            </div>
+            <div class="join-step">
+              <span class="num">2</span>
+              <div><p>Join the Google Group</p><span>Training data, baselines, and updates are shared there as soon as they're released.</span></div>
+            </div>
+            <div class="join-step">
+              <span class="num">3</span>
+              <div><p>Watch this page for the 20 Aug launch</p><span>Training data, guidelines, and starter code go live then.</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-brand"><img src="assets/logo.png" alt=""> HateMirage</div>
+        <p class="fine">A shared task at ICON 2026 on explainable Faux Hate detection and multi-dimensional reasoning. See the official conference site for venue, program, and submission portal details.</p>
+      </div>
+      <div class="footer-links">
+        <a href="https://www.icon2026.org/" target="_blank" rel="noopener">ICON 2026 ↗</a>
+        <a href="https://arxiv.org/abs/2603.02684" target="_blank" rel="noopener">Paper (LREC 2026) ↗</a>
+        <a href="https://groups.google.com/g/hatemirage-icon2026" target="_blank" rel="noopener">Google Group ↗</a>
+        <a href="mailto:saikartheekreddykasu@gmail.com,shankar.biradar@manipal.edu">Contact</a>
+      </div>
+    </div>
+    <div class="footer-note">© 2026 HateMirage organizing committee · Registration, data, and evaluation details are managed on this page and updated as milestones are reached.</div>
+  </div>
+</footer>
+
+<script>
+  const navToggle = document.getElementById('navToggle');
+  const navLinks = document.getElementById('navLinks');
+  navToggle.addEventListener('click', () => {
+    const open = navLinks.classList.toggle('open');
+    navToggle.setAttribute('aria-expanded', open);
+  });
+  navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+    navLinks.classList.remove('open');
+    navToggle.setAttribute('aria-expanded', false);
+  }));
+
+  // ---- Live timeline: reads the visitor's own clock, no manual edits ever needed ----
+  (function liveTimeline(){
+    const track = document.getElementById('timeline-track');
+    const progress = document.getElementById('tl-progress');
+    if (!track || !progress) return;
+    const items = Array.from(track.querySelectorAll('.tl-item[data-date]'));
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    const todayTime = today.getTime();
+
+    const dates = items.map(item => new Date(item.dataset.date + 'T00:00:00'));
+
+    let lastDoneIdx = -1;
+    let nextIdx = -1;
+    items.forEach((item, i) => {
+      if (dates[i].getTime() < todayTime) {
+        item.classList.add('done');
+        lastDoneIdx = i;
+      } else if (nextIdx === -1) {
+        nextIdx = i;
+      }
+    });
+
+    if (nextIdx !== -1) {
+      const nextItem = items[nextIdx];
+      nextItem.classList.add('next');
+      const h4 = nextItem.querySelector('h4');
+      const pill = document.createElement('span');
+      pill.className = 'tl-pill';
+      pill.textContent = 'Up next';
+      h4.appendChild(pill);
+    }
+
+    // Today marker
+    const marker = document.createElement('div');
+    marker.className = 'tl-today';
+    marker.innerHTML = '<span>Today · ' + today.toLocaleDateString('en-US', { month: 'short', day: 'numeric' }) + '</span>';
+    track.appendChild(marker);
+
+    requestAnimationFrame(() => {
+      const trackTop = track.getBoundingClientRect().top;
+      const dotCenters = items.map(item => {
+        const dot = item.querySelector('.tl-dot');
+        const r = dot.getBoundingClientRect();
+        return (r.top + r.height / 2) - trackTop;
+      });
+
+      let fillPx;
+      if (nextIdx === -1) {
+        // every milestone has passed
+        fillPx = dotCenters[dotCenters.length - 1];
+      } else if (lastDoneIdx === -1) {
+        // before the very first milestone — line hasn't started moving yet
+        fillPx = 0;
+      } else {
+        const segStart = dotCenters[lastDoneIdx];
+        const segEnd = dotCenters[nextIdx];
+        const dStart = dates[lastDoneIdx].getTime();
+        const dEnd = dates[nextIdx].getTime();
+        const frac = Math.max(0, Math.min(1, (todayTime - dStart) / (dEnd - dStart)));
+        fillPx = segStart + frac * (segEnd - segStart);
+      }
+
+      progress.style.height = fillPx + 'px';
+
+      const markerTop = nextIdx !== -1 ? dotCenters[nextIdx] - 9 : track.offsetHeight - 4;
+      marker.style.top = markerTop + 'px';
+    });
+  })();
+</script>
+
+</body>
+</html>
