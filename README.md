@@ -54,7 +54,8 @@ See the [live timeline](https://sai-kartheek-reddy.github.io/HateMirage-ICON2026
 
 ## Contact
 
-Questions about the task? Reach out to [Sai Kartheek Reddy Kasu](mailto:saikartheekreddykasu@gmail.com) or [Shankar Biradar](mailto:shankar.biradar@manipal.edu).
+Questions about the task? Reach out to Contact: **[hatemirage-icon2026@googlegroups.com](mailto:hatemirage-icon2026@googlegroups.com)**
+
 
 ---
 
