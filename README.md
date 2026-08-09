@@ -1,11 +1,15 @@
 <table>
 <tr>
-<td width="160"><img src="assets/logo.png" alt="HateMirage logo" width="140"></td>
-<td>
+<td width="160" valign="top">
+<img src="assets/logo.png" alt="HateMirage logo" width="140">
+</td>
+<td valign="top">
 
 # HateMirage
 
-**Explainable Faux Hate Detection**: a shared task at [ICON 2026](https://www.icon2026.org/)
+**Explainable Faux Hate Detection** — a shared task at **[ICON 2026](https://www.icon2026.org/)**.
+
+🏆 **[Participate in the HateMirage ICON 2026 Shared Task on Codabench](https://www.codabench.org/competitions/17783/)**
 
 [🌐 Website](https://sai-kartheek-reddy.github.io/HateMirage-ICON2026/) · [📄 Paper (LREC 2026)](https://arxiv.org/abs/2603.02684) · [📝 Register](https://forms.gle/zegMMsKUmpnhZ6t17) · [💬 Google Group](https://groups.google.com/g/hatemirage-icon2026)
 
