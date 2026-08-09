@@ -583,14 +583,26 @@ section.tight{ padding: 72px 0; }
 }
 .org-card{
   border: 1px solid var(--line);
+  border-left: 3px solid var(--teal-500);
   border-radius: var(--radius);
-  padding: 24px 20px;
+  padding: 18px 20px;
   background: var(--paper-raised);
   text-align: left;
 }
-.org-card{ border-left: 3px solid var(--teal-500); }
-.org-card h4{ font-size: 16.5px; font-family: 'Inter', sans-serif; font-weight: 700; }
-.org-card .aff{ font-size: 13.5px; color: var(--ink-soft); margin-top: 6px; line-height: 1.5; }
+
+.org-card h4{
+  font-size: 16.5px;
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  margin: 0;
+}
+
+.org-card .aff{
+  font-size: 13.5px;
+  color: var(--ink-soft);
+  margin-top: 5px;
+  line-height: 1.35;
+}
 
 .contact-strip{
   margin-top: 32px;
